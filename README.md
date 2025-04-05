@@ -470,12 +470,16 @@ Organizes shared types, domain knowledge, and configuration at appropriate level
 Isolates context to prevent information leakage between codebases.
 
 ```
-main-repository/
+any-repository                           # 1 repo per "main task" - but it's up to the dev
 ├── shared-context/                      # Global shared context - not mandatory but always created regardless
-│   ├── types/                           # Shared types across all repos
-│   ├── constants/                       # Shared constants
+│   ├── specs/                           # Where .md files go
 │   ├── libraries/                       # Shared utility libraries
-│   └── helpers/                         # Screenshots, snippets to help LLM
+│   ├── constants/                       # Shared constants
+│   ├── types/                           # Shared types across all repos
+│   └── helpers/                         # Additional materials to help LLM
+│       ├── links/                       # URLs for documentation
+│       ├── snippets/                    # Code snippets for reference
+│       └── screenshots/                 # UI/UX references and examples
 │
 ├── servers/                             # Server configuration
 │   └── config.json                      # Server configuration with SSH credentials (containers & gateway) - automatic VM created for this mono-repo (should have total isolation at all times)
@@ -504,11 +508,13 @@ main-repository/
 │   ├── user-management/    # This can be broad or narrow
 │   │   ├── active-branch # Decide which branch is "active" - this is just to help the default Gateway, it's entirely adjustable individually per Gateway as well, but this is very practical as a plug and play active, could be used for prod
 │   │   ├── context/                     # Mono-repo specific context - not mandatory to add - but structure is created always
-│   │   │   ├── any-md-001.md            # Automatically added as context - not mandatory
-│   │   │   ├── any-md-002.md            # Automatically added as context - not mandatory
+│   │   │   ├── specs/                   # Where .md files go
+│   │   │   ├── libraries/               # Codebase-specific libraries
+│   │   │   ├── constants/               # Codebase-specific constants
+│   │   │   ├── types/                   # Codebase-specific types
 │   │   │   └── helpers/                 # Additional materials to help LLM - not mandatory
-│   │   │       ├── links/               # URLs for documentation or such
-│   │   │       ├── snippets/            # Code snippets for reference - Some models thrive with examples
+│   │   │       ├── links/               # URLs for documentation
+│   │   │       ├── snippets/            # Code snippets for reference
 │   │   │       └── screenshots/         # UI/UX references and examples
 │   │   │
 │   │   ├── metadata/
@@ -528,11 +534,16 @@ main-repository/
 │   │   │   │   │   │   ├── ttyd/        # Terminal Session Logs reference - splitted by max token size
 │   │   │   │   │   │   └── api-gateway/ # API Gateway Logs reference - splitted by max token size
 │   │   │   │   │   └── context/         # Branch-specific context
+│   │   │   │   │       ├── specs/       # Where .md files go
+│   │   │   │   │       ├── libraries/   # Branch-specific libraries
+│   │   │   │   │       ├── constants/   # Branch-specific constants
+│   │   │   │   │       ├── types/       # Branch-specific types
 │   │   │   │   │       ├── env.json     # Environment variables & model adjustments
 │   │   │   │   │       ├── flags.json   # Feature flags
 │   │   │   │   │       └── helpers/     # Branch-specific helper materials
+│   │   │   │   │           ├── links/     # URLs for documentation
 │   │   │   │   │           ├── snippets/  # Code examples for this branch
-│   │   │   │   │           └── images/    # Visual references for LLM
+│   │   │   │   │           └── screenshots/ # Visual references for LLM
 │   │   │   │   └── 00002/ # Always based on previous automatically.
 │   │   │   │       ├── branch.info.json
 │   │   │   │       ├── changes.json
@@ -543,6 +554,16 @@ main-repository/
 │   │   │   │       ├── schema/          # Reference copy of database schema
 │   │   │   │       ├── logs/            # Reference to logs stored in separate repo
 │   │   │   │       └── context/         # Branch-specific context
+│   │   │   │           ├── specs/       # Where .md files go
+│   │   │   │           ├── libraries/   # Branch-specific libraries
+│   │   │   │           ├── constants/   # Branch-specific constants
+│   │   │   │           ├── types/       # Branch-specific types
+│   │   │   │           ├── env.json     # Environment variables & model adjustments
+│   │   │   │           ├── flags.json   # Feature flags
+│   │   │   │           └── helpers/     # Branch-specific helper materials
+│   │   │   │               ├── links/     # URLs for documentation
+│   │   │   │               ├── snippets/  # Code examples for this branch
+│   │   │   │               └── screenshots/ # Visual references for LLM
 │   │   │   │
 │   │   │
 │   │
